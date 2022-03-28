@@ -57,17 +57,43 @@
     }
 
     .hand {
+      transform: rotate(90deg);
+      transform-origin: 100%;
       width: 50%;
       height: 6px;
       background: black;
       position: absolute;
       top: 50%;
     }
-
   </style>
 
   <script>
+    const hourHand = document.querySelector('.hour-hand')
+    const minHand = document.querySelector('.min-hand')
+    const secondHand = document.querySelector('.second-hand')
 
+    function setDate() {
+      const now = new Date()
+      console.log(now);
+      
+      const seconds = now.getSeconds()
+      console.log('秒', seconds);
+      const secondDegrees = seconds * (360 / 60) + 90
+      secondHand.style.transform = `rotate(${secondDegrees}deg)`
+
+      const mins = now.getMinutes()
+      console.log('分钟', mins);
+      const minsDegrees = (mins + seconds / 60) * (360 / 60)  +90
+      minHand.style.transform = `rotate(${minsDegrees}deg)`
+
+      const hours = now.getHours()
+      console.log('小时',hours);
+      const hourDegrees = ((hours + mins / 60)) * (360 / 12) + 90
+      hourHand.style.transform=`rotate(${hourDegrees}deg)`
+    }
+    setInterval(setDate, 1000)
+
+    setDate()
 
   </script>
 </body>
